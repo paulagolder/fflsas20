@@ -9,8 +9,10 @@
 /public/oldimages/
 /var/
 /vendor/
-deploy_*.*
-composer.*
+/composer*.*
+/migrations/
+/tests/
+/bin/
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
