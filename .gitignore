@@ -9,6 +9,7 @@
 /public/oldimages/
 /var/
 /vendor/
+deploy.*
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
