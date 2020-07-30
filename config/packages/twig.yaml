@@ -1,2 +1,19 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+    globals:
+        pathToWeb: "%kernel.project_dir%/web"
+        pdffunction: '%pdf-function%'
+        locationpath: '%location-path%'
+        recaptcha_key: '%recaptcha_key%'
+        recaptcha_secret: '%recaptcha_secret%'
+        maxlistuser: '%maxlistuser%'
+        maxlistadmin: '%maxlistadmin%'
+        versionname: '%version-name%'
+        maxrecentchanges: '%maxrecentchanges%'
+        defaultcontent: '%defaultcontent%'
+       ### adminstratorsemails: '%administratorsemails%'
+        baseurl: '%base-url%'
+    paths:
+        '%kernel.project_dir%/public': pathToWeb

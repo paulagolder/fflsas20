@@ -1,9 +1,35 @@
 # This file is the entry point to configure your own services.
-# Files in the packages/ subdirectory configure your dependencies.
 
-# Put parameters here that don't need to change on each machine where the app is deployed
-# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+
+  pdf-function: true
+  location-path: "http://127.0.0.1:8000/fr/location/"
+  recaptcha_key: "6Lc9JZgUAAAAAPgXKPqDHtP16WAo0rrSliQj5VFx"
+  recaptcha_secret: "6Lc9JZgUAAAAANOmpl0z2xPNHMQrtVfge1ve9xxM"
+  maxlistuser: 20
+  maxlistadmin: 100
+  maxrecentchanges: 20
+  defaultcontent: 203
+
+  languages: ["fr", "en"]
+  version-name: "FFLSAS-20"
+  admin-name: '%env(resolve:ADMIN_NAME)%'
+  admin-email: '%env(resolve:ADMIN_EMAIL)%'
+  testemail: '%env(resolve:TESTEMAIL)%'
+  administratorsemails: '%env(resolve:ADMINISTRATORSEMAILS)%'
+
+
+  new-images-folder: '%kernel.project_dir%/public/newimages/'
+  new-images-path: '/newimages/'
+  old-images-path: "http://fflsas.org/oldimages/"
+  old-images-folder: "%kernel.project_dir%/public/oldimages/"
+    #external-newimages: "http://fflsas.org/web/newimages/"
+
+  kml-folder-long: '%kernel.project_dir%/public/kml/'
+  kml-folder: '/kml/'
+
+
+  base-url: "http://127.0.0.1:8000/"
 
 services:
     # default configuration for services in *this* file
@@ -25,3 +51,41 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+
+      #app.mylibrary:
+    #    class:
+    App\Service\MyLibrary:
+        arguments:
+           #$newimagepath : '%new-images-folder%'
+           $oldimagespath: '%old-images-path%'
+           $newimagespath : '%new-images-path%'
+
+
+    linkref_service:
+         class: App\Controller\LinkrefController
+         calls:
+            - [setContainer, ["@service_container"]]
+
+
+    App\Service\message_service:
+        class: App\Controller\MessageController
+        calls:
+            - [setContainer, ["@service_container"]]
+
+
+
+    App\Service\FileUploader:
+        arguments:
+            $targetDir: '%new-images-folder%'
+
+    App\Service\KMLFileUploader:
+        arguments:
+            $targetDir: '%kml-folder%'
+
+    App\EventListener\ImageUploadListener:
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
+
+

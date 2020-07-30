@@ -1,0 +1,3 @@
+# config/packages/benchmark/web_profiler.yaml
+framework:
+    profiler: { only_exceptions: false }

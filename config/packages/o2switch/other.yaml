@@ -1,0 +1,8 @@
+# config/packages/benchmark/other.yaml
+imports:
+    - { resource: '../dev/' }
+
+    # other resources are possible as well, like importing other
+    # files or using globs:
+    #- { resource: '/etc/myapp/some_special_config.xml' }
+    #- { resource: '/etc/myapp/*.yaml' }
