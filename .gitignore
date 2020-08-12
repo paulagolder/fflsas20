@@ -15,6 +15,7 @@
 /bin/
 *.tar*
 *.zip
+composer*
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
