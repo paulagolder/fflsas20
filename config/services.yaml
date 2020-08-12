@@ -4,32 +4,28 @@ parameters:
 
   pdf-function: true
   location-path: "http://127.0.0.1:8000/fr/location/"
-  recaptcha_key: "6Lc9JZgUAAAAAPgXKPqDHtP16WAo0rrSliQj5VFx"
-  recaptcha_secret: "6Lc9JZgUAAAAANOmpl0z2xPNHMQrtVfge1ve9xxM"
+  recaptcha_key: "6LdPi7gZAAAAAErmyLJA-n5fhzryVR-IUCjcQyPb"
+  recaptcha_secret: "6LdPi7gZAAAAALWIJGa1a8aaLS961xor9jc0NOL5"
   maxlistuser: 20
   maxlistadmin: 100
   maxrecentchanges: 20
   defaultcontent: 203
-
+  default_locale: fr
+  kernel.default_locale: fr
   languages: ["fr", "en"]
   version-name: "FFLSAS-20"
   admin-name: '%env(resolve:ADMIN_NAME)%'
   admin-email: '%env(resolve:ADMIN_EMAIL)%'
   testemail: '%env(resolve:TESTEMAIL)%'
   administratorsemails: '%env(resolve:ADMINISTRATORSEMAILS)%'
-
-
   new-images-folder: '%kernel.project_dir%/public/newimages/'
   new-images-path: '/newimages/'
-  old-images-path: "http://fflsas.org/oldimages/"
+  old-images-path: "/oldimages/"
   old-images-folder: "%kernel.project_dir%/public/oldimages/"
     #external-newimages: "http://fflsas.org/web/newimages/"
-
   kml-folder-long: '%kernel.project_dir%/public/kml/'
   kml-folder: '/kml/'
-
-
-  base-url: "http://127.0.0.1:8000/"
+  base-url: '%env(resolve:BASE_URL)%'
 
 services:
     # default configuration for services in *this* file

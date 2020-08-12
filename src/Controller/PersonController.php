@@ -31,8 +31,9 @@ use App\MyClasses\eventTree;
 use App\MyClasses\eventTreeNode;
 
 
-use Dompdf\Dompdf;
-use Dompdf\Options;
+;
+use Dompdf\Dompdf as Dompdf;
+//use Dompdf\Options;
 
 
 class PersonController extends AbstractController
@@ -284,6 +285,7 @@ class PersonController extends AbstractController
     public function pdfone($pid)
     {
         $lib =  $this->mylib ;
+        $baseurl = $this->getParameter("base-url");
 
         $this->lang = $this->requestStack->getCurrentRequest()->getLocale();
         $person = $this->getDoctrine()->getRepository("App:Person")->findOne($pid);
@@ -332,6 +334,7 @@ class PersonController extends AbstractController
         $topevent->link = "/".$this->lang."/event/".$topevent->getEventid();
         $evt = new eventTree($topevent);
         $evt->buildTree($pevents);
+           $evt->sortTree();
         $ref_ar = $this->getDoctrine()->getRepository("App:Imageref")->findGroup("person",$pid);
         $images= array();
         $i=0;
@@ -345,9 +348,10 @@ class PersonController extends AbstractController
             {
                 $this->mylib->setFullpath($image);
                 $text_ar = $this->getDoctrine()->getRepository("App:Text")->findGroup("image",$imageid);
-                $images[$i]['fullpath']= $image->fullpath;
+                $images[$i]['fullpath']= $baseurl.$image->fullpath;
                 $images[$i]['title'] = $lib->selectText($text_ar,'title',$this->lang);
                 $images[$i]['link'] = "/".$this->lang."/image/".$imageid;
+                dump($images[$i]);
                 $i++;
             }
 
@@ -372,7 +376,6 @@ class PersonController extends AbstractController
                 ));
 
 
-
                 $html = $this->renderView('person/pdfone.html.twig',
                 [ 'lang' => $this->lang,
                 'message' =>  $mess,
@@ -384,13 +387,15 @@ class PersonController extends AbstractController
                 'incidents'=>$incidents,
                 'header_html' => $header,
                 'footer_html' => $footer,
+                 'css'=> $baseurl."css/person/pdfone.css",
                 ]);
 
-
-
-                $options = new Options();
-                $options->set('isRemoteEnabled', true);
-                $dompdf = new Dompdf($options);
+//return new Response($html);
+               // $options = new Options();
+               // $options->set('isRemoteEnabled', true);
+              //  $dompdf = new Dompdf($options);
+                 $dompdf = new Dompdf();
+                $dompdf->set_option('isRemoteEnabled', true);
                 $dompdf->loadHtml($html);
                 $dompdf->setPaper('A4', 'portrait');
                 $dompdf->render();

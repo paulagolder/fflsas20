@@ -42,7 +42,8 @@ class AdminlangController extends AbstractController
 
     public function Changelang($oldpath)
     {
-     # $oldpath = str_replace( "_~", "\\",$oldpath);
+      $oldpath = str_replace( "_", "/",$oldpath);
+        $baseurl = $this->getParameter("base-url");
        # $this->lang= "EN";
        # $this->mylib->setLang("EN");
        # $request = new Request();
@@ -55,6 +56,6 @@ class AdminlangController extends AbstractController
        # return new Response(
      #       '<html><body>'.$oldpath.'</body></html>'
       #  );
-           return $this->redirectToRoute($oldpath);
+           return $this->redirectToRoute($baseurl.$oldpath);
     }
 }

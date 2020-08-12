@@ -1,4 +1,4 @@
-{# views/person/shownewssidebar.html.twig #}
+{# views/person/shownewsmenuitem.html.twig #}
 
 
 {% block stylesheets %}
@@ -8,7 +8,7 @@
 {% set locale =  app.request.getLocale() | lower %}
 
 <div id="mainmenu"  class="mainmenu" >
-   <div class="menuitem" > 
-   <a href="/{{locale}}/content/newsitems" >{{ 'news.items'| trans}}</a> 
+   <div class="menuitem" >
+   <a href="/{{locale}}/content/newsitems" >{{ 'news.items'| trans}}</a>
   </div>
 </div>

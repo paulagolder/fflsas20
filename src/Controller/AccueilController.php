@@ -25,6 +25,7 @@ class AccueilController  extends AbstractController
         $this->mylib = $mylib;
         $this->requestStack = $request_stack;
         $this->translator =$translator;
+        $this->lang= $request->getLocale();
     }
 
     public function showEnglish()
@@ -49,7 +50,7 @@ class AccueilController  extends AbstractController
 
     public function showall()
     {
-        $this->lang = $this->requestStack->getCurrentRequest()->getLocale();
+
         $mess= "";
         $heading= "Welcome";
         $texts = $this->getDoctrine()->getRepository("App:Text")->findGroup("accueil",1);

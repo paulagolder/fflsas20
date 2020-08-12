@@ -35,25 +35,7 @@ class BibloController extends AbstractController
         $this->requestStack = $request_stack;
     }
 
-    public function xShowall()
-    {
-        $this->lang = $this->requestStack->getCurrentRequest()->getLocale();
-        $fbooks = $this->getDoctrine()->getRepository("App:Biblo")->findAll();
-        if (!$fbooks) {
-            return $this->render('biblo/showall.html.twig', [ 'message' =>  'Books not Found',]);
-        }
-        foreach($fbooks as $fuser)
-        {
-            $fuser->link = "/admin/biblo/".$fuser->getBookId();
-        }
-        return $this->render('biblo/showall.html.twig',
-        [
-        'lang' => $this->lang,
-        'message' =>  '' ,
-        'heading' => 'biblos',
-        'books'=> $fbooks,
-        ]);
-    }
+
 
       public function Showall()
     {
@@ -154,23 +136,40 @@ class BibloController extends AbstractController
             ));
     }
 
-    public function BibloSearch(Request $request)
+    public function BibloSearch($search, Request $request)
     {
         $message="";
         $this->lang = $this->requestStack->getCurrentRequest()->getLocale();
+        if(isset($_GET['searchfield']))
+        {
+            $pfield = $_GET['searchfield'];
+            $this->mylib->setCookieFilter("biblo",$pfield);
+        }
+        else
+        {
+            if(strcmp($search, "=") == 0)
+            {
+                $pfield = $this->mylib->getCookieFilter("biblo");
+            }
+            else
+            {
+               $pfield="*";
+               $this->mylib->clearCookieFilter("biblo");
+            }
+        }
 
-        $pfield = $request->query->get('searchfield');
-        $gfield = $request->query->get('searchfield');
+      //  $pfield = $request->query->get('searchfield');
+     //   $gfield = $request->query->get('searchfield');
 
-        if (!$pfield)
+        if (is_null($pfield) || $pfield=="" || !$pfield || $pfield=="*")
         {
             $biblos = $this->getDoctrine()->getRepository("App:Biblo")->findAll();
             $subheading =  'found.all';
         }
         else
         {
-            $pfield = "%".$pfield."%";
-            $biblos = $this->getDoctrine()->getRepository("App:Biblo")->findSearch($pfield);
+            $sfield = "%".$pfield."%";
+            $biblos = $this->getDoctrine()->getRepository("App:Biblo")->findSearch($sfield);
             $subheading =  'found.with';
         }
 
@@ -195,7 +194,7 @@ class BibloController extends AbstractController
         'message' => $message,
         'heading' =>  'Gestion des Livres',
         'subheading' =>  $subheading,
-        'searchfield' =>$gfield,
+        'searchfield' =>$pfield,
         'contents'=> $biblos,
 
         ]);

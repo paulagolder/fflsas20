@@ -29,7 +29,7 @@ security:
 
     firewalls:
         dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js|newimages|common)/
+            pattern: ^/(_(profiler|wdt)|css|images|js|newimages|oldimages|common)/
             security: false
         main:
              pattern:    ^/
@@ -54,7 +54,8 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-         - { path: ^/web/newimages, roles:  IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/public/newimages, roles:  IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/public/oldimages, roles:  IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/logout, roles:  IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/xxremotecompleteregistration, roles:  IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/xxreregister, roles:  IS_AUTHENTICATED_ANONYMOUSLY }

@@ -137,7 +137,7 @@ class LabelController extends AbstractController
         }
         else
         {
-            if(strcmp($search, "=") == 0)
+             if(strcmp($search, "=") == 0)
             {
                 $pfield = $this->mylib->getCookieFilter("label");
                  $mode=$this->mylib->getCookieFilter("mode");
@@ -156,6 +156,10 @@ class LabelController extends AbstractController
         }
         else
         {
+        if(strcmp($pfield, "NEW") == 0)
+            {
+               $pfield = "\\_";
+             }
             $sfield = "%".$pfield."%";
             $labels = $this->getDoctrine()->getRepository("App:Label")->findSearch($sfield,$mode);
             $subheading =  'found.with';

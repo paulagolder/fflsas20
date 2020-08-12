@@ -46,6 +46,8 @@ class AdminPersonController extends AbstractController
     {
         $lib =  $this->mylib ;
         $this->lang = $this->requestStack->getCurrentRequest()->getLocale();
+        $this->lang = "fr"; //fiddle
+
         $person = $this->getDoctrine()->getRepository("App:Person")->findOne($pid);
 
         if (!$person)

@@ -13,6 +13,8 @@
 /migrations/
 /tests/
 /bin/
+*.tar*
+*.zip
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###

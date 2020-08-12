@@ -12,8 +12,11 @@ default _old:
    path: /index.php
    controller: App\Controller\ContentController::ShowContent
 
-imageroute :
-   path: /web/newimages
+newimageroute :
+   path: /public/newimages
+
+oldimageroute :
+   path: /public/oldimages
 
 
 
@@ -39,6 +42,11 @@ index_jfr:
 index_fr:
    path: /fr/accueil
    controller: App\Controller\AccueilController::showFrench
+
+index_en:
+   path: /en/accueil
+   controller: App\Controller\AccueilController::ShowEnglish
+
 
 
 accueil_b:
@@ -119,10 +127,10 @@ remote_deregistration:
     controller:  App\Controller\RegistrationController::remotederegister
 
 admin_message:
-   path: /accueil/message/{mess}
+   path: /accueil/message/{message}
    controller: App\Controller\AccueilController::Showmessage
-   requirements:
-        token: .+
+   defaults:
+     message: "No message"
 
 #=============================messages==================
 
@@ -965,8 +973,10 @@ biblo_show_oneb:
         _locale: en|fr|FR|EN
 
 biblo_admin_search:
-    path: /admin/biblo/search
+    path: /admin/biblo/search/{search}
     controller:  App\Controller\BibloController::BibloSearch
+    defaults:
+        search: "="
 
 biblo_delete_one:
     path: /admin/biblo/delete/{bkid}
