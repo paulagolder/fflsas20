@@ -4,8 +4,8 @@ parameters:
 
   pdf-function: true
   location-path: "http://127.0.0.1:8000/fr/location/"
-  recaptcha_key: "6LdPi7gZAAAAAErmyLJA-n5fhzryVR-IUCjcQyPb"
-  recaptcha_secret: "6LdPi7gZAAAAALWIJGa1a8aaLS961xor9jc0NOL5"
+  recaptcha_key: '%env(resolve:RECAPTCHA_KEY)%'
+  recaptcha_secret: '%env(resolve:RECAPTCHA_SECRET)%'
   maxlistuser: 20
   maxlistadmin: 100
   maxrecentchanges: 20
