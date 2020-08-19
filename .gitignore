@@ -15,6 +15,7 @@
 /bin/
 *.tar*
 *.zip
+*.sql
 composer*
 ###< symfony/framework-bundle ###
 
