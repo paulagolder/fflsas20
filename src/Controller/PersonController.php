@@ -351,7 +351,7 @@ class PersonController extends AbstractController
                 $images[$i]['fullpath']= $baseurl.$image->fullpath;
                 $images[$i]['title'] = $lib->selectText($text_ar,'title',$this->lang);
                 $images[$i]['link'] = "/".$this->lang."/image/".$imageid;
-                dump($images[$i]);
+               // dump($images[$i]);
                 $i++;
             }
 

@@ -132,8 +132,8 @@ class SearchController extends AbstractController
                  foreach($oref_ar as $key => $ref)
                  {
                       $pid = $key;
-                      dump($oref_ar);
-                      dump($key);
+                    //  dump($oref_ar);
+                    //  dump($key);
                       $image =   $this->getDoctrine()->getRepository("App:Image")->findOne($key);
                       ##ignore images with access > public
                       if($image  && $image->getAccess()<2)
