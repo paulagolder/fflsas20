@@ -32,7 +32,7 @@ class eventTreeNode
         $this->eventid = $eid;
     }
 
-    public function setLabel( string $text="**")
+    public function setLabel($text="**")
     {
         $this->label= $text;
     }
@@ -56,7 +56,7 @@ class eventTreeNode
         return $this->sequence;
     }
 
-    public function setLink(string $url)
+    public function setLink( $url)
     {
         $this->link = $url;
     }

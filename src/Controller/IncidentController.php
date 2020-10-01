@@ -95,6 +95,16 @@ class IncidentController extends AbstractController
            $incident->setSdate( "");
         }
         $person =  $this->getDoctrine()->getRepository("App:Person")->findOne($incident->getPersonid());
+        if($person)
+        {
+        $pname = $person->getFullname();
+        $pid = $person->getPersonid();
+        }
+        else
+        {
+         $pname =" Unknown participant ";
+         $pid = 0;
+        }
         $event =  $this->getDoctrine()->getRepository("App:Event")->findOne($incident->getEventid());
          $eventlabel=$event->getLabel();
         $etext_ar = $this->getDoctrine()->getRepository("App:Text")->findGroup('event',$incident->getEventid());
@@ -109,11 +119,11 @@ class IncidentController extends AbstractController
                    'lang'=>$this->lang,
                    'message' =>  '',
                    'eventlabel'=>$eventlabel,
-                   'personname' => $person->getFullname(),
+                   'personname' => $pname,
                    'incident'=> $incident,
                    'location'=>$location,
                    'label'=>$ilabel,
-                   'returnlink'=>"/".$this->lang."/person/".$person->getPersonid(),
+                   'returnlink'=>"/".$this->lang."/person/".$pid,
                 ]);
 
      }

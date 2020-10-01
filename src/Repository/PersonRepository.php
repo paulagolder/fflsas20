@@ -5,12 +5,8 @@ namespace App\Repository;
 use Doctrine\ORM\EntityRepository;
 use App\Entity\person;
 
-
-
 class PersonRepository extends EntityRepository
 {
-
-
 
     public function findAll()
     {
@@ -25,8 +21,6 @@ class PersonRepository extends EntityRepository
 
        return $people;
     }
-
-
 
     public function findOne($personid)
     {
@@ -83,8 +77,13 @@ class PersonRepository extends EntityRepository
        $qb->setParameter('pid', $personid);
        $person =  $qb->getQuery()->getOneOrNullResult();
        if($person)
+       {
            $person->fixperson();
-
-       return $person->getLabel();
+           return $person->getLabel();
+       }
+       else
+       {
+          return "person.not.found";
+       }
        }
 }
