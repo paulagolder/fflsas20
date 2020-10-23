@@ -25,7 +25,8 @@ class AccueilController  extends AbstractController
         $this->mylib = $mylib;
         $this->requestStack = $request_stack;
         $this->translator =$translator;
-        $this->lang= $request->getLocale();
+       // $this->lang= $request->getLocale();
+        $this->lang = $this->requestStack->getCurrentRequest()->getLocale();
     }
 
     public function showEnglish()

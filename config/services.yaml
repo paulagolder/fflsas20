@@ -3,7 +3,7 @@
 parameters:
 
   pdf-function: true
-  location-path: "http://127.0.0.1:8000/fr/location/"
+  location-path: "/fr/location/"
   recaptcha_key: '%env(resolve:RECAPTCHA_KEY)%'
   recaptcha_secret: '%env(resolve:RECAPTCHA_SECRET)%'
   maxlistuser: 20

@@ -19,6 +19,7 @@ use Symfony\Component\Mime\Address;
 
 use App\Entity\Message;
 use App\Service\MyLibrary;
+use App\Service\message_service;
 
 use App\Controller\LinkrefController;
 use App\Form\Type\MessageForm;
@@ -393,7 +394,7 @@ class MessageController extends AbstractController
     $body =  $this->renderView('message/template/'.$user->getLang().'/'.$bodytag.'.html.twig',array('user'=> $user));
     $subject = $this->trans->trans($subjecttag,[],"messages",$user->getLang());
     $message = new message($user->getUsername(),$user->getEmail(),$this->getParameter('admin-name'), $this->getParameter('admin-email'),$subject, $body);
-    $sentmessage = $this->get('message_service')->sendConfidentialMessageToUser($message,$user->getUserid(), $user->getLang());
+    $sentmessage = $this->sendConfidentialMessageToUser($message,$user->getUserid(), $user->getLang());
   }
 
   function sendAdminMessage($subjecttag,$bodytag,$user,$lang)
@@ -401,7 +402,7 @@ class MessageController extends AbstractController
     $abody =  $this->renderView('message/template/'.$lang.'/'.$bodytag.'.html.twig',array('user'=> $user));
     $subject = $this->trans->trans($subjecttag,[],"messages",$lang);
     $amessage = new message($user->getUsername(),$user->getEmail(),$this->getParameter('admin-name'), $this->getParameter('admin-email'),$subject, $abody);
-    $asmessage = $this->get('message_service')->sendMessageToAdmin($amessage, $lang);
+    $asmessage = $this->sendMessageToAdmin($amessage, $lang);
   }
 
 

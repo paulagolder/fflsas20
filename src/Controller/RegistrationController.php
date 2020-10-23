@@ -94,7 +94,7 @@ class RegistrationController extends AbstractController
             }
         }
         else{
-            $message= "duplicate.username ";
+            $message= "duplicate.username";
         }
         return $this->render(
             'registration/register.html.twig',
