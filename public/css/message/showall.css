@@ -1,12 +1,12 @@
 /*    message/showall.css */
 
 
-  
+
 
 div#message
 {
-    
- 
+
+
 }
 
 
@@ -32,8 +32,8 @@ div#message div.messagelist div.message.selectable
 div#message div.messagelist  div.name
 {
     color:yellow;
-    max-width: 10em;
-    width: 10em;
+    max-width: 15em;
+    width: 15em;
 }
 
 div#message div.messagelist  div.date

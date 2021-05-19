@@ -310,7 +310,7 @@ class UserController extends AbstractController
         $fuser = $this->getDoctrine()->getRepository('App:User')->findOne($uid);
         $email= $fuser->getEmail();
 
-        $messages = $this->getDoctrine()->getRepository('App:Message')->findbyname($fuser->getUsername());
+        $messages = $this->getDoctrine()->getRepository('App:Message')->findbynameAll($fuser->getUsername());
         return $this->render('user/showone.html.twig', array(
             'lang'=>$this->lang,
             'user' => $fuser,

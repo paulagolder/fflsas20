@@ -1,7 +1,5 @@
 
-app_lucky_number:
-    path: /lucky/number
-    controller: App\Controller\LuckyController::number
+
 
 accueil:
     path: /accueil/
@@ -20,10 +18,13 @@ oldimageroute :
 
 
 
-blog_index:
+route_index:
     path: /
-    controller: App\Controller\AccueilController::ShowFrench
-
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        route: 'content_show'
+        _locale: fr
+        sid: 201
 
 index:
     path:      /{_locale}

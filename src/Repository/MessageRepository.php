@@ -57,4 +57,13 @@ class MessageRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+
+        public function findbynameAll($name)
+    {
+        $qb = $this->createQueryBuilder('c');
+        $qb->andWhere(' (c.fromname= :val or c.toname= :val ) ' );
+        $qb->setParameter('val', $name);
+        $qb->orderBy("c.date_sent", "DESC");
+        return $qb->getQuery()->getResult();
+    }
 }

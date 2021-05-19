@@ -17,7 +17,7 @@
 <div id="registrationform" >
 {% if message %}
 <div class=subheading>
-<div class="label red" >{{message}}</div>
+<div class="label red" >{{message|trans}}</div>
 </div>
 {% endif %}
 <div class=heading>
@@ -31,7 +31,7 @@
     {{ form_row(form.plainPassword.second) }}
     {{ form_row(form.interet) }}
      <div class="g-recaptcha" data-sitekey ="{{ recaptcha_key }}"></div>
-              
+
    <button type="submit">{{'.submit'|trans}}!</button>
     {{ form_end(form) }}
 </div>

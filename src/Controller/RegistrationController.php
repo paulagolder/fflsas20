@@ -65,7 +65,7 @@ class RegistrationController extends AbstractController
         $user->setLocale( $this->lang);
         $form = $this->createForm(UserRegForm::class, $user);
         $form->handleRequest($request);
-        if($this->getDoctrine()->getRepository("App:User")->isUniqueName($user->getUsername()))
+        if($this->getDoctrine()->getRepository("App:User")->isUniqueName($user->getEmail()))
         {
             if ($form->isSubmitted() && $form->isValid()  && $this->captchaverify($request->get('g-recaptcha-response')) )
             {
