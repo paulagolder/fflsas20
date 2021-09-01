@@ -25,21 +25,15 @@ use App\Controller\LinkrefController;
 
 class UserController extends AbstractController
 {
-
-    private $lang="fr";
     private $mylib;
     private $requestStack ;
-    private $trans;
-
     private $encoderFactory;
 
-
-    public function __construct( MyLibrary $mylib ,RequestStack $request_stack,EncoderFactoryInterface $encoderFactory,TranslatorInterface $translator)
+    public function __construct( MyLibrary $mylib ,RequestStack $request_stack,EncoderFactoryInterface $encoderFactory)
     {
         $this->mylib = $mylib;
         $this->requestStack = $request_stack;
         $this->encoderFactory = $encoderFactory;
-        $this->trans =$translator;
     }
 
     public function Showall()
@@ -65,12 +59,10 @@ class UserController extends AbstractController
 
     public function editone($uid)
     {
-
         $request = $this->requestStack->getCurrentRequest();
         $fuser = $this->getDoctrine()->getRepository('App:User')->findOne($uid);
         $encoder = $this->encoderFactory->getEncoder($fuser);
         $form = $this->createForm(UserForm::class, $fuser);
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
@@ -85,8 +77,6 @@ class UserController extends AbstractController
             $entityManager->flush();
             return $this->redirect("/admin/user/search");
         }
-
-
         return $this->render('user/adminedit.html.twig', array(
             'fuser'=> $fuser,
             'form' => $form->createView(),
@@ -96,13 +86,11 @@ class UserController extends AbstractController
 
     public function newuser()
     {
-
         $request = $this->requestStack->getCurrentRequest();
         $fuser = new User;
         $fuser->setRolestr('ROLE_USER;');
         $encoder = $this->encoderFactory->getEncoder($fuser);
         $form = $this->createForm(UserForm::class, $fuser);
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
@@ -114,7 +102,6 @@ class UserController extends AbstractController
             $entityManager->flush();
             return $this->redirect("/admin/user/search");
         }
-
 
         return $this->render('user/adminedit.html.twig', array(
             'fuser'=> $fuser,
@@ -199,7 +186,7 @@ class UserController extends AbstractController
             return $this->render('user/userpassword.html.twig', array(
                 'form' => $form->createView(),
                 'password' => $user->getPassword(),
-                'returnlink'=> "/".$this->lang."/user/".$uid,
+                'returnlink'=> "/user/".$uid,
                 ));
         }
         return $this->redirect('/accueil/message/'."password.change.failed");
@@ -222,15 +209,12 @@ class UserController extends AbstractController
 
     public function bulkUserRereg()
     {
-        $this->lang = $this->requestStack->getCurrentRequest()->getLocale();
-
         $request = $this->requestStack->getCurrentRequest();
         $session = $request->getSession();
         $destinataires = $session->get('selectedusers');
         $userlist = explode(",",$destinataires);
         $numbertosend= count($userlist) - 1;
         return $this->render('user/bulkrereg.html.twig', array(
-            'lang'=>$this->lang,
             'destinataires' =>$destinataires,
             'numbertosend'=>$numbertosend,
             'returnlink'=>'/admin/user/search',
@@ -280,7 +264,7 @@ class UserController extends AbstractController
         $entityManager->persist($user);
         $entityManager->flush();
         $smessage = $this->get('message_service')->sendConfidentialUserMessage('deregister','dereg.notice',$user);
-        return $this->redirect("/".$fuser->getLang()."/user/".$uid);
+        return $this->redirect("/user/".$uid);
     }
 
 
@@ -291,12 +275,10 @@ class UserController extends AbstractController
         $user = $this->getUser();
         if(!$user) return $this->redirect("/".$this->lang."/loginx");
         if($uid!= $user->getUserId())  return $this->redirect("/".$this->lang."/person/all");
-        $this->lang = $this->requestStack->getCurrentRequest()->getLocale();
         $fuser = $this->getDoctrine()->getRepository('App:User')->findOne($uid);
         $email= $fuser->getEmail();
         $messages = $this->getDoctrine()->getRepository('App:Message')->findbyname($fuser->getUserName());
         return $this->render('user/show.html.twig', array(
-            'lang'=>$this->lang,
             'user' => $fuser,
             'messages' =>$messages,
             'returnlink'=> "/".$this->lang."/person/all",
@@ -347,7 +329,6 @@ class UserController extends AbstractController
 
         $message = $this->getDoctrine()->getRepository('App:Message')->find($mid);
         return $this->render('user/showmessage.html.twig', array(
-            'lang'=>$this->lang,
             'user' => $fuser,
             'message' =>$message,
             'returnlink'=> "/".$this->lang."/user/".$uid,
@@ -359,7 +340,7 @@ class UserController extends AbstractController
         $user = $this->getUser();
         if($uid!= $user->getUserId())  return $this->redirect("/".$this->lang."/person/all");
         $this->getDoctrine()->getRepository('App:Message')->delete($mid);
-        return $this->redirect("/".$this->lang."/user/".$uid);
+        return $this->redirect("/user/".$uid);
     }
 
     public function deleteallmessages($uid)
@@ -380,7 +361,6 @@ class UserController extends AbstractController
     {
         $selectedusers="";
         $message="";
-        $this->lang = $this->requestStack->getCurrentRequest()->getLocale();
         $usersforapproval = $this->getDoctrine()->getRepository("App:User")->findSearch("%ROLE_AADA%");
         if(isset($_GET['searchfield']))
         {

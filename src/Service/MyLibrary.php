@@ -70,11 +70,7 @@ class MyLibrary
 
 
 
-    public function xgetMess()
-    {
 
-        return "happy messagfe";
-    }
 
 
     public function getCookieLang()

@@ -104,8 +104,6 @@ class RegistrationController extends AbstractController
             ));
     }
 
-
-
     //======================================  registation stage 2  ===============================================
     // user validates email then  admin is sent request for approval  and message to user saying to await admin approval
 
@@ -143,7 +141,6 @@ class RegistrationController extends AbstractController
                 'user' => $user ,
                 'heading'=>'email.confirmed',
                 'messages'=>'',
-
                 ));
         }
 
@@ -152,10 +149,6 @@ class RegistrationController extends AbstractController
             array('form' => $form->createView() , 'lang'=>$lang,)
             );
     }
-
-
-
-
 
     public function remoteconfirmemail($uid, $code)
     {
@@ -197,7 +190,6 @@ class RegistrationController extends AbstractController
                     'messages'=>'',
 
                     ));
-
             }
             else
             {
@@ -209,11 +201,8 @@ class RegistrationController extends AbstractController
 
                 ));
             }
-
         }
-
         return $this->redirect('/accueil/message/'.'user.error');
-
     }
 
 
@@ -238,7 +227,6 @@ class RegistrationController extends AbstractController
             return $this->redirect("/admin/user/".$uid);
         }
         return $this->redirect("/admin/user/".$uid);
-
     }
 
     public function rejectuser($uid)
@@ -262,7 +250,6 @@ class RegistrationController extends AbstractController
             return $this->redirect("/admin/user/".$uid);
         }
         return $this->redirect("/admin/user/".$uid);
-
     }
 
 
@@ -298,8 +285,6 @@ class RegistrationController extends AbstractController
                 'messages'=>'',
 
                 ));
-
-
         }
 
         return $this->render('registration/reregfail.html.twig',
