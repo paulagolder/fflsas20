@@ -15,9 +15,6 @@ use Doctrine\ORM\EntityManagerInterface;
 class LinkrefRepository extends EntityRepository
 {
 
-
-
-
      public function findAll()
     {
        $qb = $this->createQueryBuilder("l");

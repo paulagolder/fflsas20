@@ -894,7 +894,7 @@ url_admin_bookmark:
 
 url_delete_one:
     path: /admin/url/delete/{urlid}
-    controller:  App\Controller\UrlController::delete
+    controller:  App\Controller\UrlController::Delete
 
 url_edit_all:
     path: /admin/url/edit/all

@@ -67,8 +67,9 @@ class UrlController extends AbstractController
         $this->lang = $this->requestStack->getCurrentRequest()->getLocale();
         $this->getDoctrine()->getRepository("App:Url")->delete($urlid);
         $this->getDoctrine()->getRepository('App:Text')->deleteTexts('url',$urlid);
-        $this->getDoctrine()->getRepository('App:Linkref')->deleteAllLinks('url',$urlid);
+        $this->getDoctrine()->getRepository('App:Linkref')->deleteGroup('url',$urlid);
          return $this->redirect("/admin/url/search");
+         http://fflsas20.lerot.eu/admin/url/search
     }
 
      public function show($urlid)
