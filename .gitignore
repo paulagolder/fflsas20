@@ -4,9 +4,10 @@
 /.env.local.php
 /.env.*.local
 /config/secrets/prod/prod.decrypt.private.php
-/public/bundles/
-/public/newimages/
-/public/oldimages/
+/developerdocs/*
+/public/bundles/*
+/public/newimages/*
+/public/oldimages/*
 /var/
 /vendor/
 /composer*.*
